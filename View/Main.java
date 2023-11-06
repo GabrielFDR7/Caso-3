@@ -2,6 +2,8 @@ package View;
 
 import java.util.Scanner;
 
+import Model.Miner;
+
 public class Main
 {
     public static void main(String[] args)
@@ -9,10 +11,10 @@ public class Main
         
         System.out.println("Prototipo de miado de bitcoin");
 
-        String algoritmo;
-        String cadena;
-        int ceros;
-        int threads;
+        String algoritmo = null;
+        String cadena = null;
+        int ceros = 0;
+        int threads = 0;
         
         boolean cont = true;
         Scanner sc = new Scanner(System.in);
@@ -68,7 +70,22 @@ public class Main
                 }
             }
 
+            if (algoritmo != null && cadena != null && ceros != 0 && threads != 0){
+                if(threads == 1){
+                    Miner miner = new Miner(algoritmo, cadena, ceros, 1, 7);
+                    miner.mine();
+                }
+                else{
+                    Miner miner1 = new Miner(algoritmo, cadena, ceros, 1, 3);
+                    miner1.mine();
+                    Miner miner2 = new Miner(algoritmo, cadena, ceros, 4, 7);
+                    miner2.mine();
+                }
+            }
+
         }
+
+        sc.close();
         
         
 
