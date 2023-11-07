@@ -28,33 +28,47 @@ public class Miner{
     }
 
     public void mine(){
-        generateCombinations(this.longitudInicial, this.longitudFinal);
+        generateStringsInRange(this.longitudInicial, this.longitudFinal);
     }
 
+    public List<String> generateStringsInRange(int minLength, int maxLength) 
+    {
+        List<String> strings = new ArrayList<>();
+    
+        generateStringsForLength(maxLength, strings);
 
-
-    public void generateCombinations(int minLength, int maxLength) {
-        List<String> combinations = new ArrayList<>();
-        generateCombinationsRecursive("", minLength, maxLength, combinations);
+        return strings;
     }
-
-    private void generateCombinationsRecursive(String prefix, int minLength, int maxLength, List<String> combinations) {
-        if (prefix.length() >= minLength) {
-            combinations.add(prefix);
-            this.hash.crearValidarHash(prefix, this.cadena, this.algoritmoDigest, this.ceros);
-        }
-        if (prefix.length() >= maxLength) {
-            return;
-        }
-        for (char c = 'a'; c <= 'z'; c++) {
-            if (c != 'ñ') {
-                generateCombinationsRecursive(prefix + c, minLength, maxLength, combinations);
+    
+    private void generateStringsForLength(int length, List<String> strings) {
+        boolean continuarGenerando = true;
+    
+        for (int i = 0; i < Math.pow(25, length) && continuarGenerando; i++) {
+            StringBuilder currentString = new StringBuilder();
+            int num = i;
+            boolean verificacion = false;
+    
+            for (int j = 0; j < length; j++) {
+                char c = (char) ('a' + (num % 25));
+                if (c >= 'ñ') {
+                    c++; // Saltar la letra 'ñ'
+                }
+                currentString.insert(0, c);
+                num /= 25;
             }
+    
+            verificacion = hash.crearValidarHash(currentString.toString(), cadena, algoritmoDigest, ceros);
+    
+            if (verificacion) {
+                System.out.println("Resultado: " + cadena + currentString.toString());
+                System.out.println("Para la cadena " + cadena + " el v que permite cumplir la condición es " + currentString.toString() + " formando el hash " + hash.darHexString());
+                continuarGenerando = false; // Detener la generación de cadenas
+            }
+    
+            strings.add(currentString.toString());
         }
     }
-
-
-
+    
 
 }
 

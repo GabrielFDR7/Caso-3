@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 
 public class Hash {
 
+    private String hexHash;
+
     public boolean crearValidarHash(String v, String cadena, MessageDigest algoritmoDigest, int cantidadCeros) {
 
         // Creacion de hash
@@ -25,9 +27,13 @@ public class Hash {
             index++;
         }
 
-        System.out.println("Para la cadena " + cadena + " el v que permite cumplir la condicion es " + v +" formando el hash " + hexHash.toString());
+        this.hexHash = hexHash.toString();
         return true;
 
     }
-    
+
+    public String darHexString()
+    {
+        return hexHash;
+    }
 }
