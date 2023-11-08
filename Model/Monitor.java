@@ -2,11 +2,13 @@ package Model;
 
 public class Monitor 
 {
-    private static boolean continuar;
+    private static boolean continuar = true;
 
-    private MinerThread minerThread1;
-    
-    private MinerThread minerThread2;
+    private String algoritmo;
+    private String cadena;
+    private String valor_v;
+    private String hash;
+    private long tiempo;
 
     public synchronized boolean getContinuar()
     {
@@ -17,13 +19,33 @@ public class Monitor
         continuar = false;
     }
 
-    public Monitor(String pAlgoritmo, String pCadena, int ceros)
+    public void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo)
     {
-        Monitor.continuar = true;
-        minerThread1 = new MinerThread(this, pAlgoritmo, pCadena, ceros, "a", "zzzm");
-        minerThread2 = new MinerThread(this, pAlgoritmo, pCadena, ceros, "zzzn", "zzzzzzz");
+        algoritmo = pAlgoritmo;
+        cadena = pCadena;
+        valor_v = pValor_v;
+        hash = pHash;
+        tiempo = pTiempo;
+    }
 
-        minerThread1.start();
-        minerThread2.start();
+    public String getAlgoritmo()
+    {
+        return algoritmo;
+    }
+    public String getCadena()
+    {
+        return cadena;
+    }
+    public String getValor_v()
+    {
+        return valor_v;
+    }
+    public String getHash()
+    {
+        return hash;
+    }
+    public long getTiempo()
+    {
+        return tiempo;
     }
 }

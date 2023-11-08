@@ -1,8 +1,11 @@
 package View;
 
 import java.util.Scanner;
+import java.util.concurrent.CyclicBarrier;
 
 import Model.Miner;
+import Model.MinerThread;
+import Model.Monitor;
 
 public class Main
 {
@@ -50,15 +53,32 @@ public class Main
                     if (!(numThreads == 1 || numThreads == 2)){
                         throw new Exception("El número de threads no es \"1\" o \"2\"");
                     }
-
+                    
+                    Monitor m = new Monitor();
                     if (numThreads == 1){
                         Miner miner = new Miner(algorithms[algorithmOption-1], cadena, numZeros, 1, 7);
                         miner.mine();
                     }
-                    else{
+                    
+                    else
+                    {
+                        CyclicBarrier cb = new CyclicBarrier(3);
+                        MinerThread miner1 = new MinerThread(m, algorithms[algorithmOption-1], cadena, numZeros, "a", "zzzm");
+                        MinerThread miner2 = new MinerThread(m, algorithms[algorithmOption-1], cadena, numZeros, "zzzn", "zzzzzzz");
 
+                        miner1.start();
+                        miner2.start();
+                        cb.await();
                     }
 
+                    String resultado = "";
+                    resultado += "Algoritmo: " + m.getAlgoritmo() + "\n";
+                    resultado += "Cadena: " + m.getCadena() + "\n";
+                    resultado += "Valor v: " + m.getValor_v() + "\n";
+                    resultado += "Hash: " + m.getHash() + "\n";
+                    resultado += "Tiempo: " + m.getTiempo() + "\n";
+
+                    System.out.println(resultado);
                 }
                 catch (Exception e){
 

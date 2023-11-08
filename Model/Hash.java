@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 
 public class Hash {
 
-    private String hexHash;
+    private String hexHash = "None";
 
     public boolean crearValidarHash(String v, String cadena, MessageDigest algoritmoDigest, int cantidadCeros) {
 
