@@ -73,12 +73,12 @@ public class Main
                         cb.await();
                     }
 
-                    String resultado = "";
+                    String resultado = "\n\nTerminado!!!!\n\n";
                     resultado += "Algoritmo: " + m.getAlgoritmo() + "\n";
                     resultado += "Cadena: " + m.getCadena() + "\n";
                     resultado += "Valor v: " + m.getValor_v() + "\n";
                     resultado += "Hash: " + m.getHash() + "...\n";
-                    resultado += "Tiempo: " + m.getTiempo() + "\n";
+                    resultado += "Tiempo(ms): " + m.getTiempo() + "\n";
 
                     System.out.println(resultado);
                 }

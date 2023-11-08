@@ -57,7 +57,7 @@ public class MinerThread extends Thread
     private boolean generateStringsInRange() {
         boolean verificacion = false;
 
-        while (monitor.getContinuar() && currentV.compareTo(fin)<=0) {
+        while (monitor.getContinuar() && fixAlphabeticalOrderError(currentV).compareTo(fin)<=0) {
  
             verificacion = hash.crearValidarHash(currentV, cadena, ceros);
             
@@ -93,4 +93,10 @@ public class MinerThread extends Thread
         }
         return resp;
     }
+    
+    private String fixAlphabeticalOrderError(String s){
+        String a =  "a".repeat(7-s.length()) + s;
+        return a;
+    } 
+
 }

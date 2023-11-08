@@ -40,7 +40,7 @@ public class Hash {
 
         String hashString = bytesToBinaryString(bytes);
 
-        StringBuilder prettyAnswer = new StringBuilder();
+        StringBuilder prettyAnswer = new StringBuilder(40);
         for (int i = 0; i < 40; i++) {
             if (i > 0 && i % 4 == 0) {
                 prettyAnswer.append(" ");
