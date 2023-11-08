@@ -95,8 +95,7 @@ public class MinerThread extends Thread
     }
     
     private String fixAlphabeticalOrderError(String s){
-        String a =  "a".repeat(7-s.length()) + s;
-        return a;
+        return "a".repeat(7-s.length()) + s;
     } 
 
 }
