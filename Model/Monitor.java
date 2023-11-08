@@ -2,28 +2,37 @@ package Model;
 
 public class Monitor 
 {
-    private static boolean continuar = true;
+    private boolean continuar = true;
 
-    private String algoritmo;
-    private String cadena;
-    private String valor_v;
-    private String hash;
-    private long tiempo;
+    private String algoritmo = "No se encontró";
+    private String cadena = "No se encontró";
+    private String valor_v = "No se encontró";
+    private String hash = "No se encontró";
+    private long tiempo = 0;
+    
+    private boolean updated = false;
 
     public synchronized boolean getContinuar()
     {
         return continuar;
     }
-    public synchronized void setContinuar()
+
+    public synchronized boolean getUpdated(){
+        return updated;
+    }
+    public synchronized void  terminar()
     {
         continuar = false;
     }
 
-    public void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo)
-    {
+    public synchronized void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo)
+    {   
+        updated = true;
         algoritmo = pAlgoritmo;
         cadena = pCadena;
+        
         valor_v = pValor_v;
+
         hash = pHash;
         tiempo = pTiempo;
     }

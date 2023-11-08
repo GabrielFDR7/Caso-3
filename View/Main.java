@@ -3,7 +3,6 @@ package View;
 import java.util.Scanner;
 import java.util.concurrent.CyclicBarrier;
 
-import Model.Miner;
 import Model.MinerThread;
 import Model.Monitor;
 
@@ -41,9 +40,9 @@ public class Main
                         throw new Exception("La cadena no tiene una longitud entre 16 o 20 caracteres");
                     }
 
-                    System.out.println("Ingrese el número (int) de 0's {20,24,32,36} que desea al final de la cadena: ");
+                    System.out.println("Ingrese el número (int) de 0's {20,24,28,32,36} que desea al final de la cadena: ");
                     int numZeros = sc.nextInt();
-                    int[] numPosibleZeros = {20,24,32,36};
+                    int[] numPosibleZeros = {20,24,28,32,36};
                     if (! contains(numPosibleZeros, numZeros)){
                         throw new Exception("El número de zeros ingresado no es uno válido");
                     }
@@ -56,15 +55,18 @@ public class Main
                     
                     Monitor m = new Monitor();
                     if (numThreads == 1){
-                        Miner miner = new Miner(algorithms[algorithmOption-1], cadena, numZeros, 1, 7);
-                        miner.mine();
+                        CyclicBarrier cb = new CyclicBarrier(2);
+                        MinerThread miner = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "a", "zzzzzzz");
+                        miner.start();
+                        
+                        cb.await();
                     }
                     
                     else
                     {
                         CyclicBarrier cb = new CyclicBarrier(3);
-                        MinerThread miner1 = new MinerThread(m, algorithms[algorithmOption-1], cadena, numZeros, "a", "zzzm");
-                        MinerThread miner2 = new MinerThread(m, algorithms[algorithmOption-1], cadena, numZeros, "zzzn", "zzzzzzz");
+                        MinerThread miner1 = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "a", "mmmmmmm");
+                        MinerThread miner2 = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "mmmmmmm", "zzzzzzz");
 
                         miner1.start();
                         miner2.start();
@@ -75,16 +77,14 @@ public class Main
                     resultado += "Algoritmo: " + m.getAlgoritmo() + "\n";
                     resultado += "Cadena: " + m.getCadena() + "\n";
                     resultado += "Valor v: " + m.getValor_v() + "\n";
-                    resultado += "Hash: " + m.getHash() + "\n";
+                    resultado += "Hash: " + m.getHash() + "...\n";
                     resultado += "Tiempo: " + m.getTiempo() + "\n";
 
                     System.out.println(resultado);
                 }
                 catch (Exception e){
-
                     System.out.println(e.getMessage());
                 }
-
            }
            else if (menuOption.equals("2")){
                 System.out.println("Terminando programa");
