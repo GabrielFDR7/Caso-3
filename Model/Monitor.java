@@ -11,31 +11,33 @@ public class Monitor
     private String hash = "No se encontró";
     private long tiempo = 0;
     
-    private boolean updated = false;
+    private boolean found = false;
 
     public synchronized boolean getContinuar()
     {
         return continuar;
     }
 
-    public synchronized boolean getUpdated(){
-        return updated;
+    public synchronized boolean getFound(){
+        return found;
     }
     public synchronized void  terminar()
     {
         continuar = false;
     }
 
-    public synchronized void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo, int numZeros)
+    public synchronized void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo, int numZeros, boolean found)
     {   
-        updated = true;
-        algoritmo = pAlgoritmo;
-        cadena = pCadena;
-        this.numZeros = numZeros;
-        valor_v = pValor_v;
-
-        hash = pHash;
-        tiempo = pTiempo;
+        if(!this.found){
+            this.found = found;
+            algoritmo = pAlgoritmo;
+            cadena = pCadena;
+            this.numZeros = numZeros;
+            valor_v = pValor_v;
+            hash = pHash;
+            tiempo = pTiempo;
+        }
+        
     }
 
     public String getAlgoritmo()

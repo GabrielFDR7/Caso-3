@@ -44,9 +44,12 @@ public class MinerThread extends Thread
         long finalTime = endTime - startTime;
         
 
-        if(! monitor.getUpdated() && foundAnswer)
-            monitor.setResults(algoritmo, cadena, currentV, hash.binaryPrettyString(cadena, currentV), finalTime, ceros);
-       
+        if(foundAnswer)
+            monitor.setResults(algoritmo, cadena, currentV, hash.binaryPrettyString(cadena, currentV), finalTime, ceros, foundAnswer);
+        else {
+            monitor.setResults(algoritmo + " -> No encontrado", cadena + " -> No encontrado", currentV + " -> ultimo (v)", hash.binaryPrettyString(cadena, currentV), finalTime, ceros, foundAnswer);
+        }
+
         try {
             cb.await();
         } catch (Exception e) {
@@ -55,12 +58,10 @@ public class MinerThread extends Thread
     }
 
     private boolean generateStringsInRange() {
-        boolean verificacion = false;
+        boolean verificacion = hash.crearValidarHash(currentV, cadena, ceros);
 
-        while (monitor.getContinuar() && (currentV.compareTo(fin)<0 || currentV.length() < fin.length()) ) {
- 
-            verificacion = hash.crearValidarHash(currentV, cadena, ceros);
-            
+        while (monitor.getContinuar() && compareOrder(currentV, fin)) {
+             
             if (verificacion)
             {
                 monitor.terminar();
@@ -68,6 +69,7 @@ public class MinerThread extends Thread
             else 
             {
                 currentV = generateNextString(currentV);
+                verificacion = hash.crearValidarHash(currentV, cadena, ceros);
             }
         }
         return verificacion;
@@ -94,4 +96,13 @@ public class MinerThread extends Thread
         return resp;
     }
     
+    private boolean compareOrder(String v ,String end){
+        if (v.length() == end.length()){
+            return v.compareTo(end) < 0;
+        }
+        else{
+            return v.length() < end.length();
+        }
+    } 
+
 }

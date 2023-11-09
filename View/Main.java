@@ -56,7 +56,7 @@ public class Main
                     Monitor m = new Monitor();
                     if (numThreads == 1){
                         CyclicBarrier cb = new CyclicBarrier(2);
-                        MinerThread miner = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "a", "aaaaaaaa");
+                        MinerThread miner = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "a", "zzzzzzz");
                         miner.start();
                         
                         cb.await();
@@ -65,8 +65,8 @@ public class Main
                     else
                     {
                         CyclicBarrier cb = new CyclicBarrier(3);
-                        MinerThread miner1 = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "a", "maaaaaa");
-                        MinerThread miner2 = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "maaaaaa", "aaaaaaaa");
+                        MinerThread miner1 = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "a", "lzzzzzz");
+                        MinerThread miner2 = new MinerThread(cb, m, algorithms[algorithmOption-1], cadena, numZeros, "maaaaaa", "zzzzzzz");
 
                         miner1.start();
                         miner2.start();
