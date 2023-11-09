@@ -20,12 +20,11 @@ public class Hash {
         String concatenacion = cadena + v;
         byte[] hash = algoritmoDigest.digest(concatenacion.getBytes());
        
-        String hashBinaryString =  bytesToBinaryString(hash);
+        String hashBinaryString = bytesToBinaryString(hash);
         // Validacion de hash
         int index = 0; 
         while (index<cantidadCeros){
-            char character = hashBinaryString.charAt(index);
-            if (character != '0'){
+            if (hashBinaryString.charAt(index) != '0'){
                 return false;
             }
             index++;
