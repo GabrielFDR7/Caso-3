@@ -76,6 +76,7 @@ public class Main
                     String resultado = "\n\nTerminado!!!!\n\n";
                     resultado += "Algoritmo: " + m.getAlgoritmo() + "\n";
                     resultado += "Cadena: " + m.getCadena() + "\n";
+                    resultado += "Ceros: " + m.getNumZeros() + "\n";
                     resultado += "Valor v: " + m.getValor_v() + "\n";
                     resultado += "Hash: " + m.getHash() + "...\n";
                     resultado += "Tiempo(ms): " + m.getTiempo() + "\n";

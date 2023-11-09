@@ -45,7 +45,7 @@ public class MinerThread extends Thread
         
 
         if(! monitor.getUpdated() && foundAnswer)
-            monitor.setResults(algoritmo, cadena, currentV, hash.binaryPrettyString(cadena, currentV), finalTime);
+            monitor.setResults(algoritmo, cadena, currentV, hash.binaryPrettyString(cadena, currentV), finalTime, ceros);
        
         try {
             cb.await();

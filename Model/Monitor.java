@@ -6,6 +6,7 @@ public class Monitor
 
     private String algoritmo = "No se encontró";
     private String cadena = "No se encontró";
+    private int numZeros = 0;
     private String valor_v = "No se encontró";
     private String hash = "No se encontró";
     private long tiempo = 0;
@@ -25,12 +26,12 @@ public class Monitor
         continuar = false;
     }
 
-    public synchronized void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo)
+    public synchronized void setResults(String pAlgoritmo, String pCadena, String pValor_v, String pHash, long pTiempo, int numZeros)
     {   
         updated = true;
         algoritmo = pAlgoritmo;
         cadena = pCadena;
-        
+        this.numZeros = numZeros;
         valor_v = pValor_v;
 
         hash = pHash;
@@ -56,5 +57,8 @@ public class Monitor
     public long getTiempo()
     {
         return tiempo;
+    }
+    public int getNumZeros(){
+        return numZeros;
     }
 }
